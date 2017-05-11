@@ -72,7 +72,7 @@ void        ft_del_chars(t_instruction *instruction, char *ltrs_to_omit);
 void		get_typecast_ltrs(t_instruction *instruction);
 void		ft_apply_instruct_flags(t_instruction *instruction);
 void		ft_set_instruct_type(t_instruction *instruction, va_list ap);
-char		*ft_char_to_string(wint_t c);
+char		*ft_char_to_string(int c);
 char 		*ft_itoa_base_sig(intmax_t n, int base);
 char 		*ft_itoa_base_usig(uintmax_t n, int base); 
 char 		*ft_str_capitalize(char *str);
