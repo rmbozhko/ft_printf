@@ -18,8 +18,18 @@ void				ft_bg_c(t_instruction *instruction, va_list ap)
 
 	if (instruction->type == 'C')
 	{
-		arg = va_arg(ap, int);
-		instruction->str = (arg == 0) ? char_is_zero(instruction) : ft_wchar((int)arg);
+		// arg = va_arg(ap, int);
+		// instruction->str = (arg == 0) ? char_is_zero(instruction) : ft_wchar((int)arg);
+		if (instruction->types == 3)
+		{
+			arg = va_arg(ap, wint_t);
+			instruction->str = (arg == 0) ? char_is_zero(instruction) : ft_wchar((int)arg);
+		}
+		else
+		{
+			arg = va_arg(ap, int);
+			instruction->str = (arg == 0) ? char_is_zero(instruction) : ft_char_to_string((int)arg);
+		}
 	}
 }
 
