@@ -20,6 +20,7 @@ void				ft_bg_c(t_instr *instr, va_list ap)
 	{
 		arg = va_arg(ap, int);
 		instr->str = (arg == 0) ? char_is_zero(instr) : ft_wchar((int)arg);
+		//CORRECT ONE
 		// if (instr->types == 3)
 		// {
 		// 	arg = va_arg(ap, wint_t);

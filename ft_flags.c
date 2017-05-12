@@ -50,8 +50,9 @@ void		sign_flag(t_instr *instr)
 
 void		get_alterform(t_instr *instr)
 {
-	instr->alternative_form = ((instr->type == 'x' || instr->type == 'X' ||
-				instr->type == 'o' || instr->type == 'O') && ft_strchr(instr->str, '#')) ? 1 : 0;
+	instr->alter_form = ((instr->type == 'x' || instr->type == 'X'
+		|| instr->type == 'o' || instr->type == 'O')
+		&& ft_strchr(instr->str, '#')) ? 1 : 0;
 	ft_del_chars(instr, "#");
 }
 
@@ -62,10 +63,8 @@ char		*get_width_perfomer(t_instr *instr, int i)
 
 	k = 0;
 	num = (char*)malloc(ft_char_numlen(instr->str) + 1);
-	// write(1, "OLA\n", 4);
 	while (ft_isdigit(instr->str[i]))
 	{
-		// write(1, "HEy\n", 4);
 		num[k++] = instr->str[i++];
 	}
 	num[k] = '\0';
@@ -83,18 +82,14 @@ void		get_width_contoller(t_instr *instr)
 	{
 		if (instr->str[i] >= 49 && instr->str[i] <= 57)
 		{
-			// write(1, "HERE\n", 5);
 			width = ((width = ft_atoi(get_width_perfomer(instr, i))) < 0) ? 0 : width;
-			//width = ft_atoi(get_width_perfomer(instr, i));
-			//width = (width < 0) ? 0 : width;
-			// printf("numlen:%d\n", ft_char_numlen(ft_itoa(width)));
 			i += ft_char_numlen(ft_itoa(width)) - 1;
-			instr->width = (instr->str[i - ft_char_numlen(ft_itoa(width))] == '.') ? instr->width : width;
+			instr->width =
+				(instr->str[i - ft_char_numlen(ft_itoa(width))] == '.')
+				? instr->width : width;
 		}
 	}
-	// write(1, "HAHA\n", 5);
 	instr->str = rev_wstr(instr->str);
 	ft_del_num(instr, rev_wstr(ft_itoa(instr->width)));
 	instr->str = rev_wstr(instr->str);
-	// write(1, "lol\n", 4);
 }

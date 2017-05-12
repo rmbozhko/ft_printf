@@ -17,7 +17,7 @@ char					*char_is_zero(t_instr *instr)
 	if (instr->width > 0 && instr->type == 'c')
 	{
 		instr->width -= 1;
-		instr->alternative_form = 1;
+		instr->alter_form = 1;
 	}
 	else
 	{

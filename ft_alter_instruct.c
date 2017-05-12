@@ -47,14 +47,14 @@ void				ft_alter_instruct_zero_padding(t_instr *instr)
 		{
 			if (instr->type == 'p')
 			{
-				p_alter_form = instr->alternative_form;
-				instr->alternative_form = 1;
+				p_alter_form = instr->alter_form;
+				instr->alter_form = 1;
 			}
 			diff = instr->width - ft_strlen(instr->str);
 			if (instr->type != 'c')
-				diff -= (((instr->type == 'x' || instr->type == 'X' || instr->type == 'p') ? 2 : 1) * instr->alternative_form);
+				diff -= (((instr->type == 'x' || instr->type == 'X' || instr->type == 'p') ? 2 : 1) * instr->alter_form);
 			diff -= ((instr->space && (instr->type != 'X' && instr->type != 'x')) || instr->plus || instr->ltz) ? 1 : 0;
-			(instr->type == 'p') ? instr->alternative_form = p_alter_form : 0;
+			(instr->type == 'p') ? instr->alter_form = p_alter_form : 0;
 		}
 		(diff > 0) ? instr->str = ft_strcat(ft_mutiply_str("0", diff), instr->str) : 0;
 	}
@@ -71,7 +71,7 @@ void				ft_alter_instruct_precision(t_instr *instr)
 		if (instr->type != 'X' && instr->type != 'x' && instr->type != 'p')
 		{
 			diff = ((instr->precision > (int)ft_strlen(instr->str)) ? instr->precision - ft_strlen(instr->str) : 0);
-			diff -= ((instr->type == 'o' || instr->type == 'O') ? 1 : 2) * instr->alternative_form;
+			diff -= ((instr->type == 'o' || instr->type == 'O') ? 1 : 2) * instr->alter_form;
 		}
 		else
 			diff = (instr->precision > (int)ft_strlen(instr->str)) ? instr->precision - ft_strlen(instr->str) : 0;

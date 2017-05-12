@@ -32,7 +32,8 @@ void		get_spaces_instruction(t_instr *instr)
 		(instr->str[i] != 32) ? tmp[j++] = instr->str[i] : 0;
 	tmp[j] = '\0';
 	instr->str = tmp;
-	instr->space = ((ft_strchr(instr->str, 32) && conversion_flags(instr->type)) ? 1 : 0);
+	instr->space = ((ft_strchr(instr->str, 32)
+		&& conversion_flags(instr->type)) ? 1 : 0);
 }
 
 void		get_precision_sign(t_instr *instr)
@@ -47,7 +48,8 @@ void		get_precision_sign(t_instr *instr)
 		if (instr->str[counter] == '.')
 		{
 			flag = 1;
-			counter += (instr->str[counter + 1] == '0') ? ft_omit_zeros(instr->str, counter) - 1 : 0;
+			counter += (instr->str[counter + 1] == '0')
+				? ft_omit_zeros(instr->str, counter) - 1 : 0;
 			if (instr->str[counter + 1] >= 49 && instr->str[counter + 1] <= 57)
 			{
 				flag = ft_atoi(get_width_perfomer(instr, counter + 1)) + 1;

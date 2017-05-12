@@ -28,19 +28,19 @@ typedef struct 	s_instr
 	long int 			width; //non-zero first digit, which specifies amount of spaces before output, but if '-' flag is presented amount of spaces after output
 	int 			minus_flag: 2; // - (minus flag), it overrrides zero_padding property, so no zero will be printed after output
 	int 			precision; //. (dot flag), adds zeros at the beginning of the number, which gets printed, or if used with string specifies number of chars, which gets printed
-	int 			alternative_form: 4; //# (only applicable to o,O and x,X (without bonuses))
+	int 			alter_form: 4; //# (only applicable to o,O and x,X (without bonuses))
 	int 			space: 2; //spaces ' ' for sign -> only availiable for i, d, D. If argument < 0, minus sign overrides space for sign, otherwise it remains empty(' ').
 	int 			plus: 2; // overrides argument's '+' and space for sign(previous flag) if argument >= 0, otherwise minus gets printed and also overrides space for sign(previous flag).
 	char 			*str;
 	enum typecast {
 		// http://www.cplusplus.com/reference/cstdio/printf/
-		hh = 1, // if hhh -> h, as h(single) is greater(due to the memory usage than twice h -> hh), otherwise if hhhh -> hh, as it even, and both hh can be handled in this case in the second time.
-		h = 2, // visit link above
-		l = 3, // visit link above
-		ll = 4, // visit link above
-		j = 5, // visit link above
-		z = 6, // visit link above
-		t = 7 // visit link above
+		hh = 1,
+		h = 2, 
+		l = 3, 
+		ll = 4, 
+		j = 5, 
+		z = 6, 
+		t = 7 
 	} types;
 	enum less_than_zero {
 		false = 0,
@@ -80,14 +80,11 @@ char        *ft_mutiply_str(char *str, unsigned int times);
 char		*ft_strncpy_mod(char *dst, const char *src, size_t len);
 char		*rev_wstr(char *str);
 void		ft_del_num(t_instr *instr, char *num);
-int      	ft_char_numlen(char *str);
 int 	 	ft_omit_zeros(char *str, int counter);
 char 		*ft_wchar(int wchar);
 char 		*ft_wstr(int *arr, int precision);
 int         ft_count_alpha(char *str, char c);
 t_instr 	*ft_printf_validing(const char *str, t_instr *instr);
-int      	ft_char_numlen(char *str);
-int 	 	ft_omit_zeros(char *str, int counter);
 int			ft_printf_allowed_compontents(char c);
 char 		*char_is_zero(t_instr *instr);
 

@@ -6,13 +6,13 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 14:55:05 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/05/11 14:57:41 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/05/12 13:01:41 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void				ft_applying_existing_flags(va_list ap, t_instr *instr)
+void		ft_applying_existing_flags(va_list ap, t_instr *instr)
 {
 	ft_set_instruct_type(instr, ap);
 	ft_apply_instruct_flags(instr);
@@ -32,11 +32,11 @@ t_instr		*ft_printf_parse_controller(va_list ap, t_instr *instr)
 	ft_del_chars(instr, ".");
 	ft_applying_existing_flags(ap, instr);
 	ft_putstring(instr->str, 0);
-	(instr->type == 'c' && instr->alternative_form) ? ft_putchar_mod(0, 0) : 0;
+	(instr->type == 'c' && instr->alter_form) ? ft_putchar_mod(0, 0) : 0;
 	return (instr);
 }
 
-void				ft_printf_processing(const char *str, va_list ap, t_instr *instr)
+void		ft_printf_processing(const char *str, va_list ap, t_instr *instr)
 {
 	char		*temp;
 
@@ -60,10 +60,10 @@ void				ft_printf_processing(const char *str, va_list ap, t_instr *instr)
 	}
 }
 
-int					ft_printf(const char *str, ...)
+int			ft_printf(const char *str, ...)
 {
-	va_list			ap;
-	t_instr	instr;
+	va_list		ap;
+	t_instr		instr;
 
 	instr.ltz = 0;
 	instr.types = 0;
