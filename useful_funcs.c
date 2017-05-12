@@ -63,25 +63,25 @@ char		*ft_wstr(int *arr, int precision)
 	return (str);
 }
 
-void		ft_del_num(t_instruction *instruction, char *num)
+void		ft_del_num(t_instr *instr, char *num)
 {
 	char	*temp;
 	int		i;
 	int		j;
 	int		middle;
 
-	middle = ft_strstr(instruction->str, num) - instruction->str;
-	temp = (char*)malloc(ft_strlen(instruction->str) - ft_strlen(num) + 1);
+	middle = ft_strstr(instr->str, num) - instr->str;
+	temp = (char*)malloc(ft_strlen(instr->str) - ft_strlen(num) + 1);
 	i = -1;
 	j = -1;
-	while (instruction->str[++i])
+	while (instr->str[++i])
 	{
 		i += (i == middle) ? ft_strlen(num) : 0;
-		temp[++j] = instruction->str[i];
+		temp[++j] = instr->str[i];
 	}
-	free(instruction->str);
+	free(instr->str);
 	temp[++j] = '\0';
-	instruction->str = temp;
+	instr->str = temp;
 }
 
 char		*rev_wstr(char *str)

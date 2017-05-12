@@ -43,18 +43,18 @@ static int		ft_strlen_mod(char *str, char *ltrs_to_omit)
 	return (counter);
 }
 
-void			ft_del_chars(t_instruction *instruction, char *omit_chr)
+void			ft_del_chars(t_instr *instr, char *omit_chr)
 {
 	char	*tmp;
 	int		i;
 	int		j;
 
-	tmp = (char*)malloc(ft_strlen_mod(instruction->str, omit_chr) + 1);
+	tmp = (char*)malloc(ft_strlen_mod(instr->str, omit_chr) + 1);
 	i = -1;
 	j = -1;
-	while (instruction->str[++i])
-		(!(ft_strchr(omit_chr, instruction->str[i])) ? tmp[++j] = instruction->str[i] : 0);
-	free(instruction->str);
+	while (instr->str[++i])
+		(!(ft_strchr(omit_chr, instr->str[i])) ? tmp[++j] = instr->str[i] : 0);
+	free(instr->str);
 	tmp[++j] = '\0';
-	instruction->str = tmp;
+	instr->str = tmp;
 }

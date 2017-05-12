@@ -12,61 +12,61 @@
 
 #include "ft_printf.h"
 
-void						ft_alter_instruct_alternative_form(t_instruction *instruction)
+void						ft_alter_instruct_alternative_form(t_instr *instr)
 {
-	if (instruction->alternative_form && (instruction->type == 'X' || instruction->type == 'x'))
-		instruction->str = (instruction->type == 'X') ? ft_strjoin("0X", instruction->str) : ft_strjoin("0x", instruction->str);
-	else if (instruction->alternative_form && (instruction->type == 'O' || instruction->type == 'o'))
-		instruction->str = ft_strjoin("0", instruction->str);
-	else if (instruction->type == 'p')
+	if (instr->alternative_form && (instr->type == 'X' || instr->type == 'x'))
+		instr->str = (instr->type == 'X') ? ft_strjoin("0X", instr->str) : ft_strjoin("0x", instr->str);
+	else if (instr->alternative_form && (instr->type == 'O' || instr->type == 'o'))
+		instr->str = ft_strjoin("0", instr->str);
+	else if (instr->type == 'p')
 	{
-		if (instruction->alternative_form == 3)
-			instruction->str = ft_strjoin("0x10", instruction->str);
-		else if (instruction->alternative_form == 4)
-			instruction->str = ft_strjoin("0x", instruction->str);
-		instruction->alternative_form = 0;
+		if (instr->alternative_form == 3)
+			instr->str = ft_strjoin("0x10", instr->str);
+		else if (instr->alternative_form == 4)
+			instr->str = ft_strjoin("0x", instr->str);
+		instr->alternative_form = 0;
 	}
 }
 
-void						ft_alter_instruct_space(t_instruction *instruction)
+void						ft_alter_instruct_space(t_instr *instr)
 {
-	if (instruction->space && (instruction->plus != 1) && (!instruction->alternative_form) &&
-		(!instruction->ltz) && (instruction->type == 'd' || instruction->type == 'i' || instruction->type == 'D'))
+	if (instr->space && (instr->plus != 1) && (!instr->alternative_form) &&
+		(!instr->ltz) && (instr->type == 'd' || instr->type == 'i' || instr->type == 'D'))
 	{
-		instruction->str = ft_strjoin(" ", instruction->str);
-		instruction->space = 0;
+		instr->str = ft_strjoin(" ", instr->str);
+		instr->space = 0;
 	}
 }
 
-void						ft_alter_instruct_plus(t_instruction *instruction)
+void						ft_alter_instruct_plus(t_instr *instr)
 {
-	if (instruction->plus && (!instruction->ltz) &&
-		(instruction->type == 'd' || instruction->type == 'i' || instruction->type == 'D'))
+	if (instr->plus && (!instr->ltz) &&
+		(instr->type == 'd' || instr->type == 'i' || instr->type == 'D'))
 	{
-		instruction->str = ft_strjoin("+", instruction->str);
-		instruction->plus = 0;
+		instr->str = ft_strjoin("+", instr->str);
+		instr->plus = 0;
 	}
 }
 
-void						ft_alter_instruct_minus(t_instruction *instruction)
+void						ft_alter_instruct_minus(t_instr *instr)
 {
-	if (instruction->ltz && (instruction->type == 'd' || instruction->type == 'i' || instruction->type == 'D'))
+	if (instr->ltz && (instr->type == 'd' || instr->type == 'i' || instr->type == 'D'))
 	{
-		instruction->str = ft_strjoin("-", instruction->str);
-		instruction->ltz = 0;
+		instr->str = ft_strjoin("-", instr->str);
+		instr->ltz = 0;
 	}
 }
 
-void						ft_alter_instruct_minus_flag(t_instruction *instruction)
+void						ft_alter_instruct_minus_flag(t_instr *instr)
 {
 	int			diff;
 
-	if (instruction->minus_flag && instruction->width > 0)
+	if (instr->minus_flag && instr->width > 0)
 	{
-		if ((instruction->type != 'X' && instruction->type != 'x') && (instruction->type != 'O' && instruction->type != 'o'))
-			diff = ((instruction->width > (int)ft_strlen(instruction->str)) ? instruction->width - ft_strlen(instruction->str) - (2 * instruction->alternative_form) : 0);
+		if ((instr->type != 'X' && instr->type != 'x') && (instr->type != 'O' && instr->type != 'o'))
+			diff = ((instr->width > (int)ft_strlen(instr->str)) ? instr->width - ft_strlen(instr->str) - (2 * instr->alternative_form) : 0);
 		else
-			diff = ((instruction->width > (int)ft_strlen(instruction->str)) ? instruction->width - ft_strlen(instruction->str) : 0);
-		instruction->str = ft_strcat(instruction->str, ft_mutiply_str(" ", diff));
+			diff = ((instr->width > (int)ft_strlen(instr->str)) ? instr->width - ft_strlen(instr->str) : 0);
+		instr->str = ft_strcat(instr->str, ft_mutiply_str(" ", diff));
 	}
 }

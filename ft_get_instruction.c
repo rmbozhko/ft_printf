@@ -17,7 +17,7 @@ int					ft_allowed_stuff(char c)
 	return ((sym_flags(c) || cast_flags(c) || (c >= 48 && c <= 57)) ? 1 : 0);
 }
 
-t_instruction		*ft_printf_validing(const char *str, t_instruction *instruction)
+t_instr		*ft_printf_validing(const char *str, t_instr *instr)
 {
 	int		i;
 
@@ -26,7 +26,7 @@ t_instruction		*ft_printf_validing(const char *str, t_instruction *instruction)
 		;
 	if (str[i] == '\0')
 		return (NULL);
-	instruction->str = ft_strsub(str, 0, i + 1);
-	instruction->instruct_len = i + 1;
-	return (instruction);
+	instr->str = ft_strsub(str, 0, i + 1);
+	instr->instruct_len = i + 1;
+	return (instr);
 }

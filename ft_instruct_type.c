@@ -12,25 +12,25 @@
 
 #include "ft_printf.h"
 
-char					*char_is_zero(t_instruction *instruction)
+char					*char_is_zero(t_instr *instr)
 {
-	if (instruction->width > 0 && instruction->type == 'c')
+	if (instr->width > 0 && instr->type == 'c')
 	{
-		instruction->width -= 1;
-		instruction->alternative_form = 1;
+		instr->width -= 1;
+		instr->alternative_form = 1;
 	}
 	else
 	{
-		instruction->precision = (instruction->precision >= 0) ? -1 : instruction->precision;
-		(!typecast_flags_int(instruction->type)) ? ft_putchar_mod(0, 0) : 0;
+		instr->precision = (instr->precision >= 0) ? -1 : instr->precision;
+		(!typecast_flags_int(instr->type)) ? ft_putchar_mod(0, 0) : 0;
 	}
-	instruction->str = ft_strdup("");
-	return (instruction->str);
+	instr->str = ft_strdup("");
+	return (instr->str);
 }
 
-static void				ft_type_percent(t_instruction *instruction, va_list ap)
+static void				ft_type_percent(t_instr *instr, va_list ap)
 {
-	(instruction->type == '%') ? instruction->str = ft_strdup("%") : 0;
+	(instr->type == '%') ? instr->str = ft_strdup("%") : 0;
 }
 
 ft_get_arg_due_to_type	*ft_set_types_arr(void)
@@ -57,14 +57,14 @@ ft_get_arg_due_to_type	*ft_set_types_arr(void)
 	return (type_funcs);
 }
 
-void					ft_set_instruct_type(t_instruction *instruction, va_list ap)
+void					ft_set_instruct_type(t_instr *instr, va_list ap)
 {
 	ft_get_arg_due_to_type	*type_funcs;
 	int						counter;
 
-	free(instruction->str);
+	free(instr->str);
 	type_funcs = ft_set_types_arr();
 	counter = -1;
 	while (type_funcs[++counter] != NULL)
-		type_funcs[counter](instruction, ap);
+		type_funcs[counter](instr, ap);
 }

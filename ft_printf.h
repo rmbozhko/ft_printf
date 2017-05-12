@@ -21,7 +21,7 @@
 								|| (type == 'O') || (type == 'x') || (type == 'X') || (type == 'U')) ? 1 : 0)
 #define typecast_flags_char(type) (((type == 'c') || (type == 's') || (type == 'S') || !(typecast_flags_int(type))) ? 1 : 0)
 
-typedef struct 	s_instruction
+typedef struct 	s_instr
 {
     char 			type; //look above(flags array)
 	int 			zero_padding: 2; // fullfil with 0's
@@ -47,31 +47,31 @@ typedef struct 	s_instruction
 		true = 1
 	} ltz;
 	size_t			instruct_len;
-} t_instruction;
+} t_instr;
 
-typedef void *(*ft_typecast_arg)(void*, t_instruction *instruction);
-typedef void (*ft_chng_instrc)(t_instruction *instruction);
-typedef void (*ft_get_arg_due_to_type)(t_instruction *instruction, va_list ap);
+typedef void *(*ft_typecast_arg)(void*, t_instr *instr);
+typedef void (*ft_chng_instrc)(t_instr *instr);
+typedef void (*ft_get_arg_due_to_type)(t_instr *instr, va_list ap);
 typedef char*(*big_sig_num_funcs)(intmax_t);
 typedef char*(*big_usig_num_funcs)(uintmax_t);
 
 void	    ft_putnstr(char *str, int end, short int flag);
 void		ft_putstring(char const *s, short int flag);
 int 		ft_putchar_mod(char c, short int flag);
-void		zero_padding(t_instruction *instruction);
-void		sign_flag(t_instruction *instruction);
-char        *get_width_perfomer(t_instruction *instruction, int i);
-void		get_width_contoller(t_instruction *instruction);
+void		zero_padding(t_instr *instr);
+void		sign_flag(t_instr *instr);
+char        *get_width_perfomer(t_instr *instr, int i);
+void		get_width_contoller(t_instr *instr);
 int			ft_printf(const char *str, ...);
-void        get_alterform(t_instruction *instruction);
-void		get_instruct_type(t_instruction *instruction);
-void        get_spaces_instruction(t_instruction *instruction);
+void        get_alterform(t_instr *instr);
+void		get_instruct_type(t_instr *instr);
+void        get_spaces_instruction(t_instr *instr);
 int         ft_char_numlen(char *str);
-void        get_precision_sign(t_instruction *instruction);
-void        ft_del_chars(t_instruction *instruction, char *ltrs_to_omit);
-void		get_typecast_ltrs(t_instruction *instruction);
-void		ft_apply_instruct_flags(t_instruction *instruction);
-void		ft_set_instruct_type(t_instruction *instruction, va_list ap);
+void        get_precision_sign(t_instr *instr);
+void        ft_del_chars(t_instr *instr, char *ltrs_to_omit);
+void		get_typecast_ltrs(t_instr *instr);
+void		ft_apply_instruct_flags(t_instr *instr);
+void		ft_set_instruct_type(t_instr *instr, va_list ap);
 char		*ft_char_to_string(int c);
 char 		*ft_itoa_base_sig(intmax_t n, int base);
 char 		*ft_itoa_base_usig(uintmax_t n, int base); 
@@ -79,47 +79,47 @@ char 		*ft_str_capitalize(char *str);
 char        *ft_mutiply_str(char *str, unsigned int times);
 char		*ft_strncpy_mod(char *dst, const char *src, size_t len);
 char		*rev_wstr(char *str);
-void		ft_del_num(t_instruction *instruction, char *num);
+void		ft_del_num(t_instr *instr, char *num);
 int      	ft_char_numlen(char *str);
 int 	 	ft_omit_zeros(char *str, int counter);
 char 		*ft_wchar(int wchar);
 char 		*ft_wstr(int *arr, int precision);
 int         ft_count_alpha(char *str, char c);
-t_instruction 	*ft_printf_validing(const char *str, t_instruction *instruction);
+t_instr 	*ft_printf_validing(const char *str, t_instr *instr);
 int      	ft_char_numlen(char *str);
 int 	 	ft_omit_zeros(char *str, int counter);
 int			ft_printf_allowed_compontents(char c);
-char 		*char_is_zero(t_instruction *instruction);
+char 		*char_is_zero(t_instr *instr);
 
 
 /******** Getting arguments *******/
 
-void				ft_type_ptr_zero_arg(t_instruction *instruction, void* arg);
-void				ft_bg_c(t_instruction *instruction, va_list ap);
-void				ft_sml_c(t_instruction *instruction, va_list ap);
-void				ft_bg_s(t_instruction *instruction, va_list ap);
-void				ft_sml_s(t_instruction *instruction, va_list ap);
-void				ft_other_chars(t_instruction *instruction, va_list ap);
-void				ft_type_ptr(t_instruction *instruction, va_list ap);
-void				ft_bg_x(t_instruction *instruction, va_list ap);
-void				ft_sml_x(t_instruction *instruction, va_list ap);
-void				ft_sml_o(t_instruction *instruction, va_list ap);
-void				ft_bg_o(t_instruction *instruction, va_list ap);
-void				ft_d_and_i(t_instruction *instruction, va_list ap);
-void				ft_bg_d(t_instruction *instruction, va_list ap);
-void				ft_sml_u(t_instruction *instruction, va_list ap);
-void				ft_bg_u(t_instruction *instruction, va_list ap);
+void				ft_type_ptr_zero_arg(t_instr *instr, void* arg);
+void				ft_bg_c(t_instr *instr, va_list ap);
+void				ft_sml_c(t_instr *instr, va_list ap);
+void				ft_bg_s(t_instr *instr, va_list ap);
+void				ft_sml_s(t_instr *instr, va_list ap);
+void				ft_other_chars(t_instr *instr, va_list ap);
+void				ft_type_ptr(t_instr *instr, va_list ap);
+void				ft_bg_x(t_instr *instr, va_list ap);
+void				ft_sml_x(t_instr *instr, va_list ap);
+void				ft_sml_o(t_instr *instr, va_list ap);
+void				ft_bg_o(t_instr *instr, va_list ap);
+void				ft_d_and_i(t_instr *instr, va_list ap);
+void				ft_bg_d(t_instr *instr, va_list ap);
+void				ft_sml_u(t_instr *instr, va_list ap);
+void				ft_bg_u(t_instr *instr, va_list ap);
 
 /******** Alterring function *******/
 
-void						ft_alter_instruct_alternative_form(t_instruction *instruction);
-void						ft_alter_instruct_space(t_instruction *instruction);
-void						ft_alter_instruct_plus(t_instruction *instruction);
-void						ft_alter_instruct_minus(t_instruction *instruction);
-void						ft_alter_instruct_minus_flag(t_instruction *instruction);
-void						ft_alter_instruct_width(t_instruction *instruction);
-void						ft_alter_instruct_zero_padding(t_instruction *instruction);
-void						ft_alter_instruct_precision(t_instruction *instruction);
+void						ft_alter_instruct_alternative_form(t_instr *instr);
+void						ft_alter_instruct_space(t_instr *instr);
+void						ft_alter_instruct_plus(t_instr *instr);
+void						ft_alter_instruct_minus(t_instr *instr);
+void						ft_alter_instruct_minus_flag(t_instr *instr);
+void						ft_alter_instruct_width(t_instr *instr);
+void						ft_alter_instruct_zero_padding(t_instr *instr);
+void						ft_alter_instruct_precision(t_instr *instr);
 ft_chng_instrc 				*ft_set_function_arr();
 
 /******** Library for Libft ******/

@@ -12,54 +12,54 @@
 
 #include "ft_printf.h"
 
-void				ft_sml_o(t_instruction *instruction, va_list ap)
+void				ft_sml_o(t_instr *instr, va_list ap)
 {
 	uintmax_t		arg;
 
-	if (instruction->type == 'o')
+	if (instr->type == 'o')
 	{
-		if (instruction->types == 6)
+		if (instr->types == 6)
 			arg = va_arg(ap, size_t);
-		else if (instruction->types == 1)
+		else if (instr->types == 1)
 			arg = (unsigned char)va_arg(ap, int);
-		else if (instruction->types == 2)
+		else if (instr->types == 2)
 			arg = (unsigned short int)va_arg(ap, int);
-		else if (instruction->types == 3)
+		else if (instr->types == 3)
 			arg = va_arg(ap, unsigned long int);
-		else if (instruction->types == 4)
+		else if (instr->types == 4)
 			arg = va_arg(ap, unsigned long long int);
-		else if (instruction->types == 5)
+		else if (instr->types == 5)
 			arg = va_arg(ap, uintmax_t);
-		else if (instruction->types == 7)
+		else if (instr->types == 7)
 			arg = va_arg(ap, ptrdiff_t);
 		else
 			arg = va_arg(ap, unsigned int);
-		instruction->alternative_form = (arg == 0 && (instruction->precision != 0)) ? 0 : instruction->alternative_form;
-		instruction->str = (arg == 0 && instruction->precision == 0) ? char_is_zero(instruction) : ft_strdup(ft_itoa_base_usig(arg, 8));
+		instr->alternative_form = (arg == 0 && (instr->precision != 0)) ? 0 : instr->alternative_form;
+		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 8));
 	}
 }
 
-void				ft_bg_o(t_instruction *instruction, va_list ap)
+void				ft_bg_o(t_instr *instr, va_list ap)
 {
 	uintmax_t		arg;
 
-	if ((int)instruction->type == 'O')
+	if ((int)instr->type == 'O')
 	{
-		if (instruction->types == 6)
+		if (instr->types == 6)
 			arg = va_arg(ap, size_t);
-		else if (instruction->types == 1)
+		else if (instr->types == 1)
 			arg = va_arg(ap, unsigned int);
-		else if (instruction->types == 2)
+		else if (instr->types == 2)
 			arg = va_arg(ap, unsigned int);
-		else if (instruction->types == 3)
+		else if (instr->types == 3)
 			arg = va_arg(ap, unsigned long int);
-		else if (instruction->types == 4)
+		else if (instr->types == 4)
 			arg = va_arg(ap, unsigned long long int);
-		else if (instruction->types == 5)
+		else if (instr->types == 5)
 			arg = va_arg(ap, uintmax_t);
 		else
 			arg = va_arg(ap, unsigned long int);
-		instruction->alternative_form = (arg == 0 && (instruction->precision != 0)) ? 0 : instruction->alternative_form;
-		instruction->str = (arg == 0 && instruction->precision == 0) ? char_is_zero(instruction) : ft_strdup(ft_itoa_base_usig(arg, 8));
+		instr->alternative_form = (arg == 0 && (instr->precision != 0)) ? 0 : instr->alternative_form;
+		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 8));
 	}
 }

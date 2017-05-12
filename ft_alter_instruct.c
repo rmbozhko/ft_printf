@@ -12,70 +12,70 @@
 
 #include "ft_printf.h"
 
-void				ft_alter_instruct_width(t_instruction *instruction)
+void				ft_alter_instruct_width(t_instr *instr)
 {
 	int		diff;
 
-	if (instruction->width > 0)
+	if (instr->width > 0)
 	{
 		diff = 0;
-		(instruction->plus && (!ft_strchr(instruction->str, '-'))) ? ft_alter_instruct_plus(instruction) : 0;
-		(instruction->ltz) ? ft_alter_instruct_minus(instruction) : 0;
-		if (instruction->width > (int)ft_strlen(instruction->str))
+		(instr->plus && (!ft_strchr(instr->str, '-'))) ? ft_alter_instruct_plus(instr) : 0;
+		(instr->ltz) ? ft_alter_instruct_minus(instr) : 0;
+		if (instr->width > (int)ft_strlen(instr->str))
 		{
-			diff = instruction->width - ft_strlen(instruction->str) - (((instruction->type == 'd' || instruction->type == 'i' || instruction->type == 'D')) ? instruction->space : 0);
-			if (instruction->type == 'd' || instruction->type == 'i' || instruction->type == 'u' || instruction->type == 'U')
-				diff -= instruction->ltz;
+			diff = instr->width - ft_strlen(instr->str) - (((instr->type == 'd' || instr->type == 'i' || instr->type == 'D')) ? instr->space : 0);
+			if (instr->type == 'd' || instr->type == 'i' || instr->type == 'u' || instr->type == 'U')
+				diff -= instr->ltz;
 		}
-		(diff > 0) ? instruction->str = ft_strcat(ft_mutiply_str(" ", diff), instruction->str) : 0;
+		(diff > 0) ? instr->str = ft_strcat(ft_mutiply_str(" ", diff), instr->str) : 0;
 	}
 }
 
-void				ft_alter_instruct_zero_padding(t_instruction *instruction)
+void				ft_alter_instruct_zero_padding(t_instr *instr)
 {
 	int		diff;
 	int		p_alter_form;
 
-	if (instruction->precision > -1 && instruction->zero_padding && (!instruction->minus_flag)
-		&& typecast_flags_int(instruction->type) && instruction->width > 0)
-		ft_alter_instruct_width(instruction);
-	else if ((!instruction->minus_flag) && instruction->width > 0 && instruction->zero_padding &&
-			(typecast_flags_char(instruction->type) || typecast_flags_int(instruction->type) || instruction->type == 'p'))
+	if (instr->precision > -1 && instr->zero_padding && (!instr->minus_flag)
+		&& typecast_flags_int(instr->type) && instr->width > 0)
+		ft_alter_instruct_width(instr);
+	else if ((!instr->minus_flag) && instr->width > 0 && instr->zero_padding &&
+			(typecast_flags_char(instr->type) || typecast_flags_int(instr->type) || instr->type == 'p'))
 	{
 		diff = 0;
-		if (instruction->width > (int)ft_strlen(instruction->str))
+		if (instr->width > (int)ft_strlen(instr->str))
 		{
-			if (instruction->type == 'p')
+			if (instr->type == 'p')
 			{
-				p_alter_form = instruction->alternative_form;
-				instruction->alternative_form = 1;
+				p_alter_form = instr->alternative_form;
+				instr->alternative_form = 1;
 			}
-			diff = instruction->width - ft_strlen(instruction->str);
-			if (instruction->type != 'c')
-				diff -= (((instruction->type == 'x' || instruction->type == 'X' || instruction->type == 'p') ? 2 : 1) * instruction->alternative_form);
-			diff -= ((instruction->space && (instruction->type != 'X' && instruction->type != 'x')) || instruction->plus || instruction->ltz) ? 1 : 0;
-			(instruction->type == 'p') ? instruction->alternative_form = p_alter_form : 0;
+			diff = instr->width - ft_strlen(instr->str);
+			if (instr->type != 'c')
+				diff -= (((instr->type == 'x' || instr->type == 'X' || instr->type == 'p') ? 2 : 1) * instr->alternative_form);
+			diff -= ((instr->space && (instr->type != 'X' && instr->type != 'x')) || instr->plus || instr->ltz) ? 1 : 0;
+			(instr->type == 'p') ? instr->alternative_form = p_alter_form : 0;
 		}
-		(diff > 0) ? instruction->str = ft_strcat(ft_mutiply_str("0", diff), instruction->str) : 0;
+		(diff > 0) ? instr->str = ft_strcat(ft_mutiply_str("0", diff), instr->str) : 0;
 	}
 }
 
-void				ft_alter_instruct_precision(t_instruction *instruction)
+void				ft_alter_instruct_precision(t_instr *instr)
 {
 	int		diff;
 
-	if ((instruction->type == 's' || instruction->type == 'S') && instruction->precision >= 0)
-		(instruction->precision >= ft_strlen(instruction->str)) ? 0 : ft_strncpy_mod(instruction->str, instruction->str, instruction->precision);
-	else if ((typecast_flags_int(instruction->type) || instruction->type == 'p') && instruction->precision > 0)
+	if ((instr->type == 's' || instr->type == 'S') && instr->precision >= 0)
+		(instr->precision >= ft_strlen(instr->str)) ? 0 : ft_strncpy_mod(instr->str, instr->str, instr->precision);
+	else if ((typecast_flags_int(instr->type) || instr->type == 'p') && instr->precision > 0)
 	{
-		if (instruction->type != 'X' && instruction->type != 'x' && instruction->type != 'p')
+		if (instr->type != 'X' && instr->type != 'x' && instr->type != 'p')
 		{
-			diff = ((instruction->precision > (int)ft_strlen(instruction->str)) ? instruction->precision - ft_strlen(instruction->str) : 0);
-			diff -= ((instruction->type == 'o' || instruction->type == 'O') ? 1 : 2) * instruction->alternative_form;
+			diff = ((instr->precision > (int)ft_strlen(instr->str)) ? instr->precision - ft_strlen(instr->str) : 0);
+			diff -= ((instr->type == 'o' || instr->type == 'O') ? 1 : 2) * instr->alternative_form;
 		}
 		else
-			diff = (instruction->precision > (int)ft_strlen(instruction->str)) ? instruction->precision - ft_strlen(instruction->str) : 0;
-		(diff > 0) ? instruction->str = ft_strcat(ft_mutiply_str("0", diff), instruction->str) : 0;
+			diff = (instr->precision > (int)ft_strlen(instr->str)) ? instr->precision - ft_strlen(instr->str) : 0;
+		(diff > 0) ? instr->str = ft_strcat(ft_mutiply_str("0", diff), instr->str) : 0;
 	}
 }
 
@@ -96,7 +96,7 @@ ft_chng_instrc		*ft_set_function_arr(void)
 	return (func_arr);
 }
 
-void				ft_apply_instruct_flags(t_instruction *instruction)
+void				ft_apply_instruct_flags(t_instr *instr)
 {
 	ft_chng_instrc	*type_funcs;
 	int				counter;
@@ -104,5 +104,5 @@ void				ft_apply_instruct_flags(t_instruction *instruction)
 	type_funcs = ft_set_function_arr();
 	counter = -1;
 	while (type_funcs[++counter] != NULL)
-		type_funcs[counter](instruction);
+		type_funcs[counter](instr);
 }
