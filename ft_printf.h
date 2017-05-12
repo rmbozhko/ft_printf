@@ -12,7 +12,7 @@
 # include <wchar.h>
 # include <locale.h>
 
-
+#define FLAGS_COND (!instr->minus_flag) && instr->width > 0 && instr->zero_padding
 #define INT_CHARS (instr->type == 'd' || instr->type == 'i')
 #define HEX_CHARS (instr->type != 'X' && instr->type != 'x')
 #define ADD_ZEROS (diff > 0) ? instr->str = ft_strcat(ft_mutiply_str("0", diff), instr->str) : 0;

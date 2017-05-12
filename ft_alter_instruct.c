@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+#define TPCST_INT_CHAR tpcst_char(instr->type) || tpcst_int(instr->type)
+
 void				ft_alter_instruct_width(t_instr *instr)
 {
 	int		diff;
@@ -39,10 +41,9 @@ void				ft_alter_instruct_zero_padding(t_instr *instr)
 	int		diff;
 	int		p_alter_form;
 
-	if (instr->precision > -1 && instr->zero_padding && (!instr->minus_flag) && tpcst_int(instr->type) && instr->width > 0)
+	if (instr->precision > -1 && tpcst_int(instr->type) && FLAGS_COND)
 		ft_alter_instruct_width(instr);
-	else if ((!instr->minus_flag) && instr->width > 0 && instr->zero_padding &&
-			(tpcst_char(instr->type) || tpcst_int(instr->type) || instr->type == 'p'))
+	else if (FLAGS_COND && (TPCST_INT_CHAR || instr->type == 'p'))
 	{
 		diff = 0;
 		if (instr->width > (int)ft_strlen(instr->str))
@@ -56,7 +57,8 @@ void				ft_alter_instruct_zero_padding(t_instr *instr)
 			if (instr->type != 'c')
 				diff -= (((instr->type == 'x' || instr->type == 'X'
 					|| instr->type == 'p') ? 2 : 1) * instr->alter_form);
-			diff -= ((instr->space && HEX_CHARS) || instr->plus || instr->ltz) ? 1 : 0;
+			diff -= ((instr->space && HEX_CHARS) ||
+				instr->plus || instr->ltz) ? 1 : 0;
 			(instr->type == 'p') ? instr->alter_form = p_alter_form : 0;
 		}
 		ADD_ZEROS;
