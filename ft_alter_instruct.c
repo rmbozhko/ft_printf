@@ -24,11 +24,13 @@ void				ft_alter_instruct_width(t_instr *instr)
 		(instr->ltz) ? ft_alter_instruct_minus(instr) : 0;
 		if (instr->width > (int)ft_strlen(instr->str))
 		{
-			diff = instr->width - ft_strlen(instr->str) - (((instr->type == 'd' || instr->type == 'i' || instr->type == 'D')) ? instr->space : 0);
-			if (instr->type == 'd' || instr->type == 'i' || instr->type == 'u' || instr->type == 'U')
+			diff = instr->width - ft_strlen(instr->str) -
+				((INT_CHARS || instr->type == 'D') ? instr->space : 0);
+			if (INT_CHARS || instr->type == 'u' || instr->type == 'U')
 				diff -= instr->ltz;
 		}
-		(diff > 0) ? instr->str = ft_strcat(ft_mutiply_str(" ", diff), instr->str) : 0;
+		(diff > 0) ? instr->str =
+			ft_strcat(ft_mutiply_str(" ", diff), instr->str) : 0;
 	}
 }
 
@@ -37,11 +39,10 @@ void				ft_alter_instruct_zero_padding(t_instr *instr)
 	int		diff;
 	int		p_alter_form;
 
-	if (instr->precision > -1 && instr->zero_padding && (!instr->minus_flag)
-		&& typecast_flags_int(instr->type) && instr->width > 0)
+	if (instr->precision > -1 && instr->zero_padding && (!instr->minus_flag) && tpcst_int(instr->type) && instr->width > 0)
 		ft_alter_instruct_width(instr);
 	else if ((!instr->minus_flag) && instr->width > 0 && instr->zero_padding &&
-			(typecast_flags_char(instr->type) || typecast_flags_int(instr->type) || instr->type == 'p'))
+			(tpcst_char(instr->type) || tpcst_int(instr->type) || instr->type == 'p'))
 	{
 		diff = 0;
 		if (instr->width > (int)ft_strlen(instr->str))
@@ -53,11 +54,12 @@ void				ft_alter_instruct_zero_padding(t_instr *instr)
 			}
 			diff = instr->width - ft_strlen(instr->str);
 			if (instr->type != 'c')
-				diff -= (((instr->type == 'x' || instr->type == 'X' || instr->type == 'p') ? 2 : 1) * instr->alter_form);
-			diff -= ((instr->space && (instr->type != 'X' && instr->type != 'x')) || instr->plus || instr->ltz) ? 1 : 0;
+				diff -= (((instr->type == 'x' || instr->type == 'X'
+					|| instr->type == 'p') ? 2 : 1) * instr->alter_form);
+			diff -= ((instr->space && HEX_CHARS) || instr->plus || instr->ltz) ? 1 : 0;
 			(instr->type == 'p') ? instr->alter_form = p_alter_form : 0;
 		}
-		(diff > 0) ? instr->str = ft_strcat(ft_mutiply_str("0", diff), instr->str) : 0;
+		ADD_ZEROS;
 	}
 }
 
@@ -66,17 +68,23 @@ void				ft_alter_instruct_precision(t_instr *instr)
 	int		diff;
 
 	if ((instr->type == 's' || instr->type == 'S') && instr->precision >= 0)
-		(instr->precision >= ft_strlen(instr->str)) ? 0 : ft_strncpy_mod(instr->str, instr->str, instr->precision);
-	else if ((typecast_flags_int(instr->type) || instr->type == 'p') && instr->precision > 0)
+		(instr->precision >= ft_strlen(instr->str)) ? 0 :
+			ft_strncpy_mod(instr->str, instr->str, instr->precision);
+	else if ((tpcst_int(instr->type)
+		|| instr->type == 'p') && instr->precision > 0)
 	{
-		if (instr->type != 'X' && instr->type != 'x' && instr->type != 'p')
+		if (HEX_CHARS && instr->type != 'p')
 		{
-			diff = ((instr->precision > (int)ft_strlen(instr->str)) ? instr->precision - ft_strlen(instr->str) : 0);
-			diff -= ((instr->type == 'o' || instr->type == 'O') ? 1 : 2) * instr->alter_form;
+			diff = ((instr->precision > (int)ft_strlen(instr->str))
+				? instr->precision - ft_strlen(instr->str) : 0);
+			diff -= ((octal_sign) ? 1 : 2) * instr->alter_form;
 		}
 		else
-			diff = (instr->precision > (int)ft_strlen(instr->str)) ? instr->precision - ft_strlen(instr->str) : 0;
-		(diff > 0) ? instr->str = ft_strcat(ft_mutiply_str("0", diff), instr->str) : 0;
+		{
+			diff = (instr->precision > (int)ft_strlen(instr->str))
+				? instr->precision - ft_strlen(instr->str) : 0;
+		}
+		ADD_ZEROS;
 	}
 }
 

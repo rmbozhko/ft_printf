@@ -22,7 +22,7 @@ char			*char_is_zero(t_instr *instr)
 	else
 	{
 		instr->precision = (instr->precision >= 0) ? -1 : instr->precision;
-		(!typecast_flags_int(instr->type)) ? ft_putchar_mod(0, 0) : 0;
+		(!tpcst_int(instr->type)) ? ft_putchar_mod(0, 0) : 0;
 	}
 	instr->str = ft_strdup("");
 	return (instr->str);

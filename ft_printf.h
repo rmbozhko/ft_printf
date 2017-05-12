@@ -12,14 +12,20 @@
 # include <wchar.h>
 # include <locale.h>
 
+
+#define INT_CHARS (instr->type == 'd' || instr->type == 'i')
+#define HEX_CHARS (instr->type != 'X' && instr->type != 'x')
+#define ADD_ZEROS (diff > 0) ? instr->str = ft_strcat(ft_mutiply_str("0", diff), instr->str) : 0;
+#define octal_sign (instr->type == 'O' || instr->type == 'o')
+#define del_chars(x)	ft_del_chars(instr, ft_mutiply_str(x,(ft_count_alpha(instr->str, *x))));
 #define sym_flags(c) ((c == '-' || c == '+' || c == '#' || c == '.' || c == ' ') ? (1) : (0))
 #define cast_flags(c) ((c == 'h' || c == 'l' || c == 'j' || c == 'z' || c == 't') ? (1) : (0))
 #define conversion_flags(x) ((x == '%' || x == 's' || x == 'S' || x == 'p' || x == 'd' || x == 'D'|| \
 							x == 'i' || x == 'o' || x == 'O' || x == 'u' || x == 'U'|| \
 							x == 'x' || x == 'X' || x == 'c' || x == 'C') ? 1 : 0)
-#define typecast_flags_int(type) (((type == 'i') || (type == 'd') || (type == 'D') || (type == 'u') || (type == 'o') \
+#define tpcst_int(type) (((type == 'i') || (type == 'd') || (type == 'D') || (type == 'u') || (type == 'o') \
 								|| (type == 'O') || (type == 'x') || (type == 'X') || (type == 'U')) ? 1 : 0)
-#define typecast_flags_char(type) (((type == 'c') || (type == 's') || (type == 'S') || !(typecast_flags_int(type))) ? 1 : 0)
+#define tpcst_char(type) (((type == 'c') || (type == 's') || (type == 'S') || !(tpcst_int(type))) ? 1 : 0)
 
 typedef struct 	s_instr
 {

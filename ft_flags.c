@@ -39,7 +39,7 @@ void		sign_flag(t_instr *instr)
 	}
 	else
 		instr->minus_flag = 0;
-	if (ft_strchr(instr->str, '+') != NULL && !typecast_flags_char(instr->type))
+	if (ft_strchr(instr->str, '+') != NULL && !tpcst_char(instr->type))
 	{
 		ft_del_chars(instr, "+");
 		instr->plus = 1;
@@ -82,7 +82,8 @@ void		get_width_contoller(t_instr *instr)
 	{
 		if (instr->str[i] >= 49 && instr->str[i] <= 57)
 		{
-			width = ((width = ft_atoi(get_width_perfomer(instr, i))) < 0) ? 0 : width;
+			if ((width = ft_atoi(get_width_perfomer(instr, i))) < 0)
+				width = 0;
 			i += ft_char_numlen(ft_itoa(width)) - 1;
 			instr->width =
 				(instr->str[i - ft_char_numlen(ft_itoa(width))] == '.')

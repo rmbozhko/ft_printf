@@ -70,12 +70,12 @@ void		get_typecast_ltrs(t_instr *instr)
 	if (ft_strchr(instr->str, 'h') || ft_strstr(instr->str, "hh"))
 	{
 		instr->types = ((ft_count_alpha(instr->str, 'h') == 2) ? hh : h);
-		ft_del_chars(instr, ft_mutiply_str("h", (ft_count_alpha(instr->str, 'h'))));
+		del_chars("h");
 	}
 	if (ft_strchr(instr->str, 'l') || ft_strstr(instr->str, "ll"))
 	{
 		instr->types = ((ft_count_alpha(instr->str, 'l') == 2) ? ll : l);
-		ft_del_chars(instr, ft_mutiply_str("l", (ft_count_alpha(instr->str, 'l'))));
+		del_chars("l");
 	}
 	if (ft_strchr(instr->str, 'z'))
 	{

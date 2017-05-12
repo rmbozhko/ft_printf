@@ -17,7 +17,7 @@ void						ft_alter_instruct_alternative_form(t_instr *instr)
 	if (instr->alter_form && (instr->type == 'X' || instr->type == 'x'))
 		instr->str = (instr->type == 'X') ?
 			ft_strjoin("0X", instr->str) : ft_strjoin("0x", instr->str);
-	else if (instr->alter_form && (instr->type == 'O' || instr->type == 'o'))
+	else if (instr->alter_form && octal_sign)
 		instr->str = ft_strjoin("0", instr->str);
 	else if (instr->type == 'p')
 	{
@@ -32,8 +32,7 @@ void						ft_alter_instruct_alternative_form(t_instr *instr)
 void						ft_alter_instruct_space(t_instr *instr)
 {
 	if (instr->space && (instr->plus != 1) && (!instr->alter_form) &&
-		(!instr->ltz) && (instr->type == 'd' ||
-		instr->type == 'i' || instr->type == 'D'))
+		(!instr->ltz) && (INT_CHARS || instr->type == 'D'))
 	{
 		instr->str = ft_strjoin(" ", instr->str);
 		instr->space = 0;
@@ -42,8 +41,7 @@ void						ft_alter_instruct_space(t_instr *instr)
 
 void						ft_alter_instruct_plus(t_instr *instr)
 {
-	if (instr->plus && (!instr->ltz) &&
-		(instr->type == 'd' || instr->type == 'i' || instr->type == 'D'))
+	if (instr->plus && (!instr->ltz) && (INT_CHARS || instr->type == 'D'))
 	{
 		instr->str = ft_strjoin("+", instr->str);
 		instr->plus = 0;
@@ -52,8 +50,7 @@ void						ft_alter_instruct_plus(t_instr *instr)
 
 void						ft_alter_instruct_minus(t_instr *instr)
 {
-	if (instr->ltz && (instr->type == 'd'
-		|| instr->type == 'i' || instr->type == 'D'))
+	if (instr->ltz && (INT_CHARS || instr->type == 'D'))
 	{
 		instr->str = ft_strjoin("-", instr->str);
 		instr->ltz = 0;
@@ -66,7 +63,7 @@ void						ft_alter_instruct_minus_flag(t_instr *instr)
 
 	if (instr->minus_flag && instr->width > 0)
 	{
-		if ((instr->type != 'X' && instr->type != 'x')
+		if ((HEX_CHARS)
 			&& (instr->type != 'O' && instr->type != 'o'))
 			diff = ((instr->width > (int)ft_strlen(instr->str)) ? instr->width -
 				ft_strlen(instr->str) - (2 * instr->alter_form) : 0);
