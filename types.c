@@ -33,7 +33,7 @@ void		get_spaces_instruction(t_instr *instr)
 	tmp[j] = '\0';
 	instr->str = tmp;
 	instr->space = ((ft_strchr(instr->str, 32)
-		&& conversion_flags(instr->type)) ? 1 : 0);
+		&& CONVERSION_FLAGS(instr->type)) ? 1 : 0);
 }
 
 void		get_precision_sign(t_instr *instr)
@@ -70,12 +70,12 @@ void		get_typecast_ltrs(t_instr *instr)
 	if (ft_strchr(instr->str, 'h') || ft_strstr(instr->str, "hh"))
 	{
 		instr->types = ((ft_count_alpha(instr->str, 'h') == 2) ? hh : h);
-		del_chars("h");
+		DEL_CHARS("h");
 	}
 	if (ft_strchr(instr->str, 'l') || ft_strstr(instr->str, "ll"))
 	{
 		instr->types = ((ft_count_alpha(instr->str, 'l') == 2) ? ll : l);
-		del_chars("l");
+		DEL_CHARS("l");
 	}
 	if (ft_strchr(instr->str, 'z'))
 	{

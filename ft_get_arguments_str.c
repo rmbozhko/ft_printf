@@ -90,6 +90,6 @@ void				ft_sml_s(t_instr *instr, va_list ap)
 
 void				ft_other_chars(t_instr *instr, va_list ap)
 {
-	if (!(conversion_flags((int)instr->type)))
+	if (!(CONVERSION_FLAGS((int)instr->type)))
 		instr->str = ft_char_to_string(instr->type);
 }

@@ -39,7 +39,7 @@ void		sign_flag(t_instr *instr)
 	}
 	else
 		instr->minus_flag = 0;
-	if (ft_strchr(instr->str, '+') != NULL && !tpcst_char(instr->type))
+	if (ft_strchr(instr->str, '+') != NULL && !TPCST_CHAR(instr->type))
 	{
 		ft_del_chars(instr, "+");
 		instr->plus = 1;

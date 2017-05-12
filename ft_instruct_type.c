@@ -22,7 +22,7 @@ char			*char_is_zero(t_instr *instr)
 	else
 	{
 		instr->precision = (instr->precision >= 0) ? -1 : instr->precision;
-		(!tpcst_int(instr->type)) ? ft_putchar_mod(0, 0) : 0;
+		(!TPCST_INT(instr->type)) ? ft_putchar_mod(0, 0) : 0;
 	}
 	instr->str = ft_strdup("");
 	return (instr->str);
@@ -33,11 +33,11 @@ static void		ft_type_percent(t_instr *instr, va_list ap)
 	(instr->type == '%') ? instr->str = ft_strdup("%") : 0;
 }
 
-ft_get_arg		*ft_set_types_arr(void)
+t_ft_get_arg	*ft_set_types_arr(void)
 {
-	ft_get_arg		*type_funcs;
+	t_ft_get_arg		*type_funcs;
 
-	type_funcs = (ft_get_arg*)malloc(sizeof(ft_get_arg) * 15 + 1);
+	type_funcs = (t_ft_get_arg*)malloc(sizeof(t_ft_get_arg) * 15 + 1);
 	type_funcs[0] = ft_sml_s;
 	type_funcs[1] = ft_d_and_i;
 	type_funcs[2] = ft_bg_d;
@@ -59,8 +59,8 @@ ft_get_arg		*ft_set_types_arr(void)
 
 void			ft_set_instruct_type(t_instr *instr, va_list ap)
 {
-	ft_get_arg		*type_funcs;
-	int				counter;
+	t_ft_get_arg		*type_funcs;
+	int					counter;
 
 	free(instr->str);
 	type_funcs = ft_set_types_arr();
