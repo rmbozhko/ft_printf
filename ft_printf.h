@@ -51,7 +51,7 @@ typedef struct 	s_instr
 
 typedef void *(*ft_typecast_arg)(void*, t_instr *instr);
 typedef void (*ft_chng_instrc)(t_instr *instr);
-typedef void (*ft_get_arg_due_to_type)(t_instr *instr, va_list ap);
+typedef void (*ft_get_arg)(t_instr *instr, va_list ap);
 typedef char*(*big_sig_num_funcs)(intmax_t);
 typedef char*(*big_usig_num_funcs)(uintmax_t);
 

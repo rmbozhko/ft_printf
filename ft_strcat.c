@@ -19,17 +19,12 @@ char	*ft_strcat(char *dest, const char *src)
 
 	i = ft_strlen(dest);
 	k = 0;
-	// printf("src:[%s: %d]\n", src, ft_strlen(src));
-	// printf("dest:[%s]\n", dest);
-	// printf("i_len:%d\n", i);
 	while (src[k] != '\0')
 	{
 		dest[i] = src[k];
 		k++;
 		i++;
-		// write(1, "HURA12\n", 7);
 	}
 	dest[i] = '\0';
-	// printf("strings:%s\n", dest);
 	return (dest);
 }

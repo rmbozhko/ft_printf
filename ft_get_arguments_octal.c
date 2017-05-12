@@ -34,8 +34,10 @@ void				ft_sml_o(t_instr *instr, va_list ap)
 			arg = va_arg(ap, ptrdiff_t);
 		else
 			arg = va_arg(ap, unsigned int);
-		instr->alter_form = (arg == 0 && (instr->precision != 0)) ? 0 : instr->alter_form;
-		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 8));
+		instr->alter_form = (arg == 0
+			&& (instr->precision != 0)) ? 0 : instr->alter_form;
+		instr->str = (arg == 0 && instr->precision == 0)
+			? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 8));
 	}
 }
 
@@ -59,7 +61,9 @@ void				ft_bg_o(t_instr *instr, va_list ap)
 			arg = va_arg(ap, uintmax_t);
 		else
 			arg = va_arg(ap, unsigned long int);
-		instr->alter_form = (arg == 0 && (instr->precision != 0)) ? 0 : instr->alter_form;
-		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 8));
+		instr->alter_form = (arg == 0
+			&& (instr->precision != 0)) ? 0 : instr->alter_form;
+		instr->str = (arg == 0 && instr->precision == 0)
+			? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 8));
 	}
 }

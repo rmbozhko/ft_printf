@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char					*char_is_zero(t_instr *instr)
+char			*char_is_zero(t_instr *instr)
 {
 	if (instr->width > 0 && instr->type == 'c')
 	{
@@ -28,16 +28,16 @@ char					*char_is_zero(t_instr *instr)
 	return (instr->str);
 }
 
-static void				ft_type_percent(t_instr *instr, va_list ap)
+static void		ft_type_percent(t_instr *instr, va_list ap)
 {
 	(instr->type == '%') ? instr->str = ft_strdup("%") : 0;
 }
 
-ft_get_arg_due_to_type	*ft_set_types_arr(void)
+ft_get_arg		*ft_set_types_arr(void)
 {
-	ft_get_arg_due_to_type		*type_funcs;
+	ft_get_arg		*type_funcs;
 
-	type_funcs = (ft_get_arg_due_to_type*)malloc(sizeof(ft_get_arg_due_to_type) * 15 + 1);
+	type_funcs = (ft_get_arg*)malloc(sizeof(ft_get_arg) * 15 + 1);
 	type_funcs[0] = ft_sml_s;
 	type_funcs[1] = ft_d_and_i;
 	type_funcs[2] = ft_bg_d;
@@ -57,10 +57,10 @@ ft_get_arg_due_to_type	*ft_set_types_arr(void)
 	return (type_funcs);
 }
 
-void					ft_set_instruct_type(t_instr *instr, va_list ap)
+void			ft_set_instruct_type(t_instr *instr, va_list ap)
 {
-	ft_get_arg_due_to_type	*type_funcs;
-	int						counter;
+	ft_get_arg		*type_funcs;
+	int				counter;
 
 	free(instr->str);
 	type_funcs = ft_set_types_arr();

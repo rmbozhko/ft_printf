@@ -65,7 +65,8 @@ void				ft_bg_x(t_instr *instr, va_list ap)
 			arg = va_arg(ap, ptrdiff_t);
 		else
 			arg = va_arg(ap, unsigned int);
-		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_str_capitalize(ft_itoa_base_usig(arg, 16));
+		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr)
+			: ft_str_capitalize(ft_itoa_base_usig(arg, 16));
 		instr->alter_form = (arg == 0) ? 0 : instr->alter_form;
 	}
 }
@@ -92,7 +93,9 @@ void				ft_sml_x(t_instr *instr, va_list ap)
 			arg = va_arg(ap, ptrdiff_t);
 		else
 			arg = va_arg(ap, unsigned int);
-		instr->str = (instr->precision == 0 && arg == 0) ? ft_strdup("") : ft_strdup(ft_itoa_base_usig(arg, 16));
-		instr->alter_form = ((instr->precision == 0 && arg == 0) || (arg == 0 && instr->alter_form)) ? 0 : instr->alter_form;
+		instr->str = (instr->precision == 0 && arg == 0)
+			? ft_strdup("") : ft_strdup(ft_itoa_base_usig(arg, 16));
+		instr->alter_form = ((instr->precision == 0 && arg == 0) ||
+			(arg == 0 && instr->alter_form)) ? 0 : instr->alter_form;
 	}
 }

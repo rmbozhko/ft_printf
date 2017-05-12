@@ -19,7 +19,8 @@ void				ft_alter_instruct_width(t_instr *instr)
 	if (instr->width > 0)
 	{
 		diff = 0;
-		(instr->plus && (!ft_strchr(instr->str, '-'))) ? ft_alter_instruct_plus(instr) : 0;
+		(instr->plus && (!ft_strchr(instr->str, '-')))
+			? ft_alter_instruct_plus(instr) : 0;
 		(instr->ltz) ? ft_alter_instruct_minus(instr) : 0;
 		if (instr->width > (int)ft_strlen(instr->str))
 		{

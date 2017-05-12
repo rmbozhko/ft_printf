@@ -36,7 +36,8 @@ void				ft_d_and_i(t_instr *instr, va_list ap)
 			arg = va_arg(ap, int);
 		instr->ltz = (arg < 0) ? 1 : 0;
 		arg = (instr->ltz) ? -arg : arg;
-		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
+		instr->str = (arg == 0 && instr->precision == 0)
+			? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
 	}
 }
 
@@ -49,7 +50,8 @@ void				ft_bg_d(t_instr *instr, va_list ap)
 		arg = va_arg(ap, long int);
 		instr->ltz = (arg < 0) ? 1 : 0;
 		arg = (instr->ltz) ? -arg : arg;
-		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
+		instr->str = (arg == 0 && instr->precision == 0)
+			? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
 	}
 }
 
@@ -76,7 +78,8 @@ void				ft_sml_u(t_instr *instr, va_list ap)
 			arg = va_arg(ap, ptrdiff_t);
 		else
 			arg = va_arg(ap, unsigned int);
-		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
+		instr->str = (arg == 0 && instr->precision == 0)
+			? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
 	}
 }
 
@@ -87,6 +90,7 @@ void				ft_bg_u(t_instr *instr, va_list ap)
 	if (instr->type == 'U')
 	{
 		arg = va_arg(ap, unsigned long int);
-		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
+		instr->str = (arg == 0 && instr->precision == 0)
+			? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
 	}
 }
