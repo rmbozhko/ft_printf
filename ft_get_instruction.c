@@ -14,7 +14,7 @@
 
 int			ft_allowed_stuff(char c)
 {
-	return ((SYM_FLAGS(c) || CAST_FLAGS(c) || (c >= 48 && c <= 57)) ? 1 : 0);
+	return ((SYM_FLAGS(c) || CAST_COND(c) || (c >= 48 && c <= 57)) ? 1 : 0);
 }
 
 t_instr		*ft_printf_validing(const char *str, t_instr *instr)
@@ -22,7 +22,7 @@ t_instr		*ft_printf_validing(const char *str, t_instr *instr)
 	int		i;
 
 	i = 0;
-	while (str[++i] && !(CONVERSION_FLAGS(str[i]))
+	while (str[++i] && !(CONVER_FLGS(str[i]))
 		&& (ft_allowed_stuff(str[i])))
 		;
 	if (str[i] == '\0')

@@ -24,9 +24,10 @@ void				ft_alter_instruct_width(t_instr *instr)
 		(instr->ltz) ? ft_alter_instruct_minus(instr) : 0;
 		if (instr->width > (int)ft_strlen(instr->str))
 		{
-			diff = instr->width - ft_strlen(instr->str) -
-				((INT_CHARS(instr->type) || instr->type == 'D') ? instr->space : 0);
-			if (INT_CHARS(instr->type) || instr->type == 'u' || instr->type == 'U')
+			diff = instr->width -
+				ft_strlen(instr->str) - ((INT_TYPE(instr->type)
+				|| instr->type == 'D') ? instr->space : 0);
+			if (INT_TYPE(instr->type) || UNSIG_TYPE(instr->type))
 				diff -= instr->ltz;
 		}
 		(diff > 0) ? instr->str =
@@ -55,7 +56,7 @@ void				ft_alter_instruct_zero_padding(t_instr *instr)
 			if (instr->type != 'c')
 				diff -= (((instr->type == 'x' || instr->type == 'X'
 					|| instr->type == 'p') ? 2 : 1) * instr->alter_form);
-			diff -= ((instr->space && NOT_HEX_CHARS(instr->type)) ||
+			diff -= ((instr->space && NOT_HEX_TYPE(instr->type)) ||
 				instr->plus || instr->ltz) ? 1 : 0;
 			(instr->type == 'p') ? instr->alter_form = p_alter_form : 0;
 		}
@@ -73,11 +74,11 @@ void				ft_alter_instruct_precision(t_instr *instr)
 	else if ((TPCST_INT(instr->type)
 		|| instr->type == 'p') && instr->precision > 0)
 	{
-		if (NOT_HEX_CHARS(instr->type) && instr->type != 'p')
+		if (NOT_HEX_TYPE(instr->type) && instr->type != 'p')
 		{
 			diff = ((instr->precision > (int)ft_strlen(instr->str))
 				? instr->precision - ft_strlen(instr->str) : 0);
-			diff -= ((OCTAL_SIGN) ? 1 : 2) * instr->alter_form;
+			diff -= ((OCT_TYPE(instr->type)) ? 1 : 2) * instr->alter_form;
 		}
 		else
 		{

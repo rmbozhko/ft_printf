@@ -22,11 +22,11 @@ void		zero_padding(t_instr *instr)
 		if ((instr->str[i] == '0') && !(ft_isdigit(instr->str[i - 1]))
 				&& (instr->str[i - 1] != '.'))
 		{
-			instr->zero_padding = 1;
+			instr->padding = 1;
 			break ;
 		}
 		else
-			instr->zero_padding = 0;
+			instr->padding = 0;
 	}
 }
 

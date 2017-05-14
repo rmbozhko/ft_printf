@@ -33,7 +33,7 @@ void		get_spaces_instruction(t_instr *instr)
 	tmp[j] = '\0';
 	instr->str = tmp;
 	instr->space = ((ft_strchr(instr->str, 32)
-		&& CONVERSION_FLAGS(instr->type)) ? 1 : 0);
+		&& CONVER_FLGS(instr->type)) ? 1 : 0);
 }
 
 void		get_precision_sign(t_instr *instr)
