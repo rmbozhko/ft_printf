@@ -14,24 +14,38 @@
 
 void		ft_applying_existing_flags(va_list ap, t_instr *instr)
 {
+	// write(1, "BAD12\n", 6);
 	ft_set_instruct_type(instr, ap);
+	// write(1, "BAD21\n", 6);
 	ft_apply_instruct_flags(instr);
+	// write(1, "BAD121\n", 7);
 }
 
 t_instr		*ft_printf_parse_controller(va_list ap, t_instr *instr)
 {
 	get_precision_sign(instr);
 	get_width_contoller(instr);
+	// write(1, "BAD2\n", 5);
 	zero_padding(instr);
+	// write(1, "BAD1\n", 5);
 	get_instruct_type(instr);
+	// write(1, "BAD3\n", 5);
 	get_alterform(instr);
+	// write(1, "BAD4\n", 5);
 	sign_flag(instr);
+	// write(1, "BAD5\n", 5);
 	get_typecast_ltrs(instr);
+	// write(1, "BAD6\n", 5);
 	get_spaces_instruction(instr);
+	// write(1, "BAD7\n", 5);
 	ft_del_chars(instr, "0123456789");
+	// write(1, "BAD8\n", 5);
 	ft_del_chars(instr, ".");
+	// write(1, "BAD9\n", 5);
 	ft_applying_existing_flags(ap, instr);
+	// write(1, "BADA\n", 5);
 	ft_putstring(instr->str, 0);
+	// write(1, "BADB\n", 5);
 	(instr->type == 'c' && instr->alter_form) ? ft_putchar_mod(0, 0) : 0;
 	return (instr);
 }

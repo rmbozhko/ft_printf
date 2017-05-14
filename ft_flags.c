@@ -65,32 +65,46 @@ char		*get_width_perfomer(t_instr *instr, int i)
 	num = (char*)malloc(ft_char_numlen(instr->str) + 1);
 	while (ft_isdigit(instr->str[i]))
 	{
+		// printf("num:%c\n", instr->str[i]);
 		num[k++] = instr->str[i++];
 	}
 	num[k] = '\0';
+	// printf("width_str:%s\n", num);
 	return (num);
 }
 
 void		get_width_contoller(t_instr *instr)
 {
-	int		i;
-	int		width;
+	int				i;
+	intmax_t		width;
+	int 			flag;
 
 	i = -1;
 	instr->width = 0;
-	while (instr->str[++i])
+	while (instr->str[++i] && !(flag = 0))
 	{
 		if (instr->str[i] >= 49 && instr->str[i] <= 57)
 		{
-			if ((width = ft_atoi(get_width_perfomer(instr, i))) < 0)
+			// write(1, "TADA\n", 5);
+			// printf("OPA:%ld\n", ft_atoi(get_width_perfomer(instr, i)));
+			if ((width = ft_atoi(get_width_perfomer(instr, i))) > 2147483647 || (width = ft_atoi(get_width_perfomer(instr, i))) < 0)
+			{
+				// printf("width_num:%d\n", width);
+				// write(1, "LOL\n", 4);
 				width = 0;
+				flag = 1;
+				break ;
+			}
+			// printf("width:%d\n", width);
 			i += ft_char_numlen(ft_itoa(width)) - 1;
 			instr->width =
 				(instr->str[i - ft_char_numlen(ft_itoa(width))] == '.')
 				? instr->width : width;
 		}
 	}
-	instr->str = rev_wstr(instr->str);
+	// printf("end_width:%d\n", width);
+	instr->str = (!flag) ? rev_wstr(instr->str) : instr->str;
 	ft_del_num(instr, rev_wstr(ft_itoa(instr->width)));
-	instr->str = rev_wstr(instr->str);
+	instr->str = (!flag) ? rev_wstr(instr->str) : instr->str;
+	// write(1, "BAD\n", 4);
 }
