@@ -53,7 +53,7 @@ typedef	struct		s_instr
 	int				padding: 2;
 	long int		width;
 	int				minus_flag: 2;
-	int				precision;
+	long int		precision;
 	int				alter_form: 4;
 	int				space: 2;
 	int				plus: 2;
@@ -99,7 +99,7 @@ char				*ft_char_to_string(int c);
 char				*ft_itoa_base_sig(intmax_t n, int base);
 char				*ft_itoa_base_usig(uintmax_t n, int base);
 char				*ft_str_capitalize(char *str);
-char				*ft_mutiply_str(char *str, unsigned int times);
+char				*ft_mutiply_str(char *str, uintmax_t times);
 char				*ft_strncpy_mod(char *dst, const char *src, size_t len);
 char				*rev_wstr(char *str);
 void				ft_del_num(t_instr *instr, char *num);
@@ -153,4 +153,5 @@ void				*ft_memset(void *b, int c, size_t len);
 int					ft_int_numlen(int n);
 int					ft_isalnum(int c);
 int					ft_strcmp(const char *str1, const char *str2);
+intmax_t			ft_atoi_base(char *str, int base);
 #endif

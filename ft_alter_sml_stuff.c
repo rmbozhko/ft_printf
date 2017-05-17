@@ -60,17 +60,24 @@ void						ft_alter_instruct_minus(t_instr *instr)
 
 void						ft_alter_instruct_minus_flag(t_instr *instr)
 {
-	int			diff;
+	intmax_t		diff;
 
 	if (instr->minus_flag && instr->width > 0)
 	{
 		if ((NOT_HEX_TYPE(instr->type))
 			&& (instr->type != 'O' && instr->type != 'o'))
+		{
 			diff = ((instr->width > (int)ft_strlen(instr->str)) ? instr->width -
 				ft_strlen(instr->str) - (2 * instr->alter_form) : 0);
+			// write(1, "HAHA1\n", 5);
+		}
 		else
+		{
 			diff = ((instr->width > (int)ft_strlen(instr->str))
 				? instr->width - ft_strlen(instr->str) : 0);
-		instr->str = ft_strcat(instr->str, ft_mutiply_str(" ", diff));
+			// write(1, "HAHA2\n", 5);
+		}
+		// printf("diff:%jd\n", diff);
+		instr->str = ft_strjoin(instr->str, ft_mutiply_str(" ", diff));
 	}
 }

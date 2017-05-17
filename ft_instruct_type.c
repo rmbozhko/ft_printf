@@ -65,6 +65,10 @@ void			ft_set_instruct_type(t_instr *instr, va_list ap)
 	free(instr->str);
 	type_funcs = ft_set_types_arr();
 	counter = -1;
+	// printf("type:%c\n", instr->type);
 	while (type_funcs[++counter] != NULL)
+	{
+		// printf("str:%s:%d\n", instr->str, counter);
 		type_funcs[counter](instr, ap);
+	}
 }

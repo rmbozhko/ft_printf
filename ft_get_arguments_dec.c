@@ -18,6 +18,7 @@ void				ft_d_and_i(t_instr *instr, va_list ap)
 
 	if (instr->type == 'd' || instr->type == 'i')
 	{
+		// printf("HEER!\n");
 		if (instr->types == 6)
 			arg = va_arg(ap, size_t);
 		else if (instr->types == 1)
@@ -38,6 +39,7 @@ void				ft_d_and_i(t_instr *instr, va_list ap)
 		arg = (instr->ltz) ? -arg : arg;
 		instr->str = (arg == 0 && instr->precision == 0)
 			? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
+		// printf("temp:%s\n", instr->str);
 	}
 }
 

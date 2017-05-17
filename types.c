@@ -14,7 +14,9 @@
 
 void		get_instruct_type(t_instr *instr)
 {
+	// printf("mY-instr:%s\n", instr->str);
 	instr->type = instr->str[ft_strlen(instr->str) - 1];
+	// printf("my_type:%c\n", instr->type);
 	ft_del_chars(instr, &instr->str[ft_strlen(instr->str) - 1]);
 }
 
@@ -38,11 +40,12 @@ void		get_spaces_instruction(t_instr *instr)
 
 void		get_precision_sign(t_instr *instr)
 {
-	int		counter;
-	int		flag;
+	int				counter;
+	intmax_t		flag;
 
 	counter = 0;
 	flag = (ft_strchr(instr->str, '.') ? 1 : 0);
+	// write(1, "BADA\n", 5);
 	while (instr->str[counter] && flag)
 	{
 		if (instr->str[counter] == '.')
@@ -52,17 +55,23 @@ void		get_precision_sign(t_instr *instr)
 				? ft_omit_zeros(instr->str, counter) - 1 : 0;
 			if (instr->str[counter + 1] >= 49 && instr->str[counter + 1] <= 57)
 			{
-				flag = ft_atoi(get_width_perfomer(instr, counter + 1)) + 1;
-				counter += ft_char_numlen(ft_itoa(flag));
+				flag = ft_atoi_base(get_width_perfomer(instr, counter + 1), 10) + 1;
+				// printf("flag:%jd\n", flag);
+				counter += ft_char_numlen(ft_itoa(flag)); //counter += ft_char_numlen(ft_itoa_base_usig(flag, 10));
 			}
 		}
 		counter++;
 	}
+	// write(1, "HAHA\n", 5);
 	instr->precision = flag;
 	instr->precision -= 1;
+	// printf("precision:%jd\n", instr->precision);
 	instr->str = rev_wstr(instr->str);
-	(instr->precision > 0) ? ft_del_num(instr, ft_itoa(instr->precision)) : 0;
+	(instr->precision > 0) ? ft_del_num(instr, ft_itoa_base_usig(instr->precision, 10)) : 0;
+	// ft_del_num(instr, ft_itoa_base_usig(instr->precision, 10));
 	instr->str = rev_wstr(instr->str);
+	instr->precision = (instr->precision > 2147483647) ? 0 : instr->precision;
+	// printf("final_str:%s\n", instr->str);
 }
 
 void		get_typecast_ltrs(t_instr *instr)

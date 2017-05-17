@@ -16,6 +16,8 @@ void				ft_alter_instruct_width(t_instr *instr)
 {
 	int		diff;
 
+	// write(1, "KEKE\n", 5);
+	// printf("width:%jd\n", instr->width);
 	if (instr->width > 0)
 	{
 		diff = 0;
@@ -54,8 +56,8 @@ void				ft_alter_instruct_zero_padding(t_instr *instr)
 			}
 			diff = instr->width - ft_strlen(instr->str);
 			if (instr->type != 'c')
-				diff -= (((instr->type == 'x' || instr->type == 'X'
-					|| instr->type == 'p') ? 2 : 1) * instr->alter_form);
+				diff -= (((HEX_TYPE(instr->type) || instr->type == 'p')
+					? 2 : 1) * instr->alter_form);
 			diff -= ((instr->space && NOT_HEX_TYPE(instr->type)) ||
 				instr->plus || instr->ltz) ? 1 : 0;
 			(instr->type == 'p') ? instr->alter_form = p_alter_form : 0;
@@ -114,5 +116,8 @@ void				ft_apply_instruct_flags(t_instr *instr)
 	type_funcs = ft_set_function_arr();
 	counter = -1;
 	while (type_funcs[++counter] != NULL)
+	{
+		// printf("YES %d\n", counter);
 		type_funcs[counter](instr);
+	}
 }
