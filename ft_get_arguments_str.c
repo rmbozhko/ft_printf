@@ -92,4 +92,5 @@ void				ft_other_chars(t_instr *instr, va_list ap)
 {
 	if (!(CONVER_FLGS((int)instr->type)))
 		instr->str = ft_char_to_string(instr->type);
+	(void)ap;
 }

@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 14:48:11 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/05/11 14:53:18 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/05/18 16:01:08 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 int				ft_omit_zeros(char *str, int counter)
 {
+	int		i;
+
+	i = 0;
+	(str[counter + 1] == '0') ? counter++ : 0;
 	while (str[counter] == '0')
+	{
+		i++;
 		counter++;
-	return (counter);
+	}
+	return (i);
 }
 
 int				ft_char_numlen(char *str)
@@ -57,4 +64,23 @@ void			ft_del_chars(t_instr *instr, char *omit_chr)
 	free(instr->str);
 	tmp[++j] = '\0';
 	instr->str = tmp;
+}
+
+char			*rev_wstr(char *str)
+{
+	char	c;
+	char	*temp;
+	int		i;
+	int		j;
+
+	j = -1;
+	i = ft_strlen(str) - 1;
+	temp = (char*)malloc(i + 1);
+	while (i > -1)
+	{
+		c = str[i--];
+		temp[++j] = c;
+	}
+	temp[++j] = '\0';
+	return (temp);
 }

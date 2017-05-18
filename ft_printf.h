@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 16:01:09 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/05/14 12:47:21 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/05/18 15:47:34 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <wchar.h>
 # include <locale.h>
 
+# define OHNE_SPCS(type) ((!UNSIG_TYPE(type) && !TPCST_CHAR(type)) ? 1 : 0)
 # define CAST_FLAGS (c == 'h' || c == 'l' || c == 'j' || c == 'z' || c == 't')
 # define ALTER_FLAGS (c == '-' || c == '+' || c == '#' || c == '.' || c == ' ')
 # define MUTL_ZEROS ft_mutiply_str("0", diff), instr->str
@@ -53,12 +54,13 @@ typedef	struct		s_instr
 	int				padding: 2;
 	long int		width;
 	int				minus_flag: 2;
-	int				precision;
+	long int		precision;
 	int				alter_form: 4;
 	int				space: 2;
 	int				plus: 2;
 	char			*str;
 	size_t			instruct_len;
+	int				null_c : 2;
 	enum			e_typecast {
 		hh = 1,
 		h = 2,
@@ -83,7 +85,7 @@ void				ft_putstring(char const *s, short int flag);
 int					ft_putchar_mod(char c, short int flag);
 void				zero_padding(t_instr *instr);
 void				sign_flag(t_instr *instr);
-char				*get_width_perfomer(t_instr *instr, int i);
+char				*get_number(t_instr *instr, int i);
 void				get_width_contoller(t_instr *instr);
 int					ft_printf(const char *str, ...);
 void				get_alterform(t_instr *instr);
@@ -99,7 +101,7 @@ char				*ft_char_to_string(int c);
 char				*ft_itoa_base_sig(intmax_t n, int base);
 char				*ft_itoa_base_usig(uintmax_t n, int base);
 char				*ft_str_capitalize(char *str);
-char				*ft_mutiply_str(char *str, unsigned int times);
+char				*ft_mutiply_str(char *str, uintmax_t times);
 char				*ft_strncpy_mod(char *dst, const char *src, size_t len);
 char				*rev_wstr(char *str);
 void				ft_del_num(t_instr *instr, char *num);
@@ -153,4 +155,6 @@ void				*ft_memset(void *b, int c, size_t len);
 int					ft_int_numlen(int n);
 int					ft_isalnum(int c);
 int					ft_strcmp(const char *str1, const char *str2);
+intmax_t			ft_atoi_base(char *str, int base);
+int					ft_omit_zeros_neg(t_instr *instr, int i);
 #endif

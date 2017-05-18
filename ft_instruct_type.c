@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 15:12:13 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/05/11 15:18:14 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/05/18 15:55:40 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 char			*char_is_zero(t_instr *instr)
 {
+	instr->null_c = 0;
 	if (instr->width > 0 && instr->type == 'c')
 	{
 		instr->width -= 1;
-		instr->alter_form = 1;
+		instr->null_c = 1;
 	}
 	else
 	{
@@ -31,6 +32,7 @@ char			*char_is_zero(t_instr *instr)
 static void		ft_type_percent(t_instr *instr, va_list ap)
 {
 	(instr->type == '%') ? instr->str = ft_strdup("%") : 0;
+	(void)ap;
 }
 
 t_ft_get_arg	*ft_set_types_arr(void)
@@ -66,5 +68,7 @@ void			ft_set_instruct_type(t_instr *instr, va_list ap)
 	type_funcs = ft_set_types_arr();
 	counter = -1;
 	while (type_funcs[++counter] != NULL)
+	{
 		type_funcs[counter](instr, ap);
+	}
 }

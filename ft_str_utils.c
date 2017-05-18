@@ -24,9 +24,9 @@ int			ft_count_alpha(char *str, char c)
 	return (counter);
 }
 
-char		*ft_mutiply_str(char *str, unsigned int times)
+char		*ft_mutiply_str(char *str, uintmax_t times)
 {
-	unsigned int	i;
+	uintmax_t		i;
 	char			*tmp;
 
 	i = 0;

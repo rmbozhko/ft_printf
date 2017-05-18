@@ -6,7 +6,7 @@
 /*   By: ybelilov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/27 16:34:21 by ybelilov          #+#    #+#             */
-/*   Updated: 2016/12/27 16:34:32 by ybelilov         ###   ########.fr       */
+/*   Updated: 2017/05/18 16:00:44 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,11 @@ int	ft_atoi(const char *str)
 	res = 0;
 	nb = '\0';
 	temp = ft_strdup(str);
-	// printf("atoi:%s\n", temp);
 	while (str[i] == '\n' || str[i] == '\t' || str[i] == ' ' ||
 				str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;
-	if (str[i] == '-')
-	{
-		// printf("HERE1\n");
-		nb = '-';
-	}
-	else if (str[i] == '+')
-		nb = '+';
+	(str[i] == '-') ? nb = '-' : 0;
+	(str[i] == '+') ? nb = '+' : 0;
 	if (nb)
 		i++;
 	while (str[i] >= 48 && str[i] <= 57)
@@ -41,11 +35,5 @@ int	ft_atoi(const char *str)
 		res = res * 10 + (str[i] - '0');
 		i++;
 	}
-	// printf("%ld\n", res);
-	if (nb == '-')
-	{
-		return (res * (-1));
-	}
-	else
-		return (res);
+	return ((nb == '-') ? res * (-1) : (res));
 }

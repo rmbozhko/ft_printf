@@ -6,11 +6,43 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 14:35:27 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/05/11 14:39:29 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/05/18 15:48:10 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int	ft_inbase(char c, int base)
+{
+	if (base <= 10)
+		return (c >= '0' && c <= '9');
+	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= ('A' + base - 10)));
+}
+
+intmax_t	ft_atoi_base(char *str, int base)
+{
+	intmax_t	value;
+	int			sign;
+
+	value = 0;
+	if (base <= 1 || base > 36)
+		return (0);
+	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\f'
+			|| *str == '\r' || *str == '\v')
+		str++;
+	sign = (*str == '-') ? -1 : 1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (ft_inbase(*str, base))
+	{
+		if (*str - 'A' >= 0)
+			value = value * base + (*str - 'A' + 10);
+		else
+			value = value * base + (*str - '0');
+		str++;
+	}
+	return (value * sign);
+}
 
 char		*ft_wchar(int wchar)
 {
@@ -82,23 +114,4 @@ void		ft_del_num(t_instr *instr, char *num)
 	free(instr->str);
 	temp[++j] = '\0';
 	instr->str = temp;
-}
-
-char		*rev_wstr(char *str)
-{
-	char	c;
-	char	*temp;
-	int		i;
-	int		j;
-
-	j = -1;
-	i = ft_strlen(str) - 1;
-	temp = (char*)malloc(i + 1);
-	while (i > -1)
-	{
-		c = str[i--];
-		temp[++j] = c;
-	}
-	temp[++j] = '\0';
-	return (temp);
 }

@@ -12,6 +12,25 @@
 
 #include "ft_printf.h"
 
+int					ft_omit_zeros_neg(t_instr *instr, int i)
+{
+	int		flag;
+
+	flag = 1;
+	while (i != 0)
+	{
+		if (instr->str[i] == '0')
+		{
+			if (instr->str[i - 1] == '.')
+				return (0);
+		}
+		if (instr->str[i] == '.')
+			return (1);
+		i--;
+	}
+	return (flag);
+}
+
 static char			*ft_convert_sig(intmax_t n, int base, char *str, int i)
 {
 	intmax_t	div;

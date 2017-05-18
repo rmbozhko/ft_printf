@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 14:08:29 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/05/11 14:34:47 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/05/18 15:52:16 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,36 @@ void		get_spaces_instruction(t_instr *instr)
 	tmp[j] = '\0';
 	instr->str = tmp;
 	instr->space = ((ft_strchr(instr->str, 32)
-		&& CONVER_FLGS(instr->type)) ? 1 : 0);
+		&& (INT_TYPE(instr->type) || instr->type == 'D')) ? 1 : 0);
 }
 
 void		get_precision_sign(t_instr *instr)
 {
-	int		counter;
-	int		flag;
+	int				counter;
+	intmax_t		flag;
 
-	counter = 0;
+	counter = -1;
 	flag = (ft_strchr(instr->str, '.') ? 1 : 0);
-	while (instr->str[counter] && flag)
+	while (instr->str[++counter] && flag)
 	{
 		if (instr->str[counter] == '.')
 		{
 			flag = 1;
 			counter += (instr->str[counter + 1] == '0')
-				? ft_omit_zeros(instr->str, counter) - 1 : 0;
+			? ft_omit_zeros(instr->str, counter) : 0;
 			if (instr->str[counter + 1] >= 49 && instr->str[counter + 1] <= 57)
 			{
-				flag = ft_atoi(get_width_perfomer(instr, counter + 1)) + 1;
-				counter += ft_char_numlen(ft_itoa(flag));
+				flag = ft_atoi_base(get_number(instr, counter + 1), 10) + 1;
+				counter += ft_char_numlen(ft_itoa_base_usig(flag, 10));
 			}
 		}
-		counter++;
 	}
-	instr->precision = flag;
-	instr->precision -= 1;
+	instr->precision = flag - 1;
 	instr->str = rev_wstr(instr->str);
-	(instr->precision > 0) ? ft_del_num(instr, ft_itoa(instr->precision)) : 0;
+	(instr->precision > 0) ? ft_del_num(instr,
+		rev_wstr(ft_itoa_base_usig(instr->precision, 10))) : 0;
 	instr->str = rev_wstr(instr->str);
+	instr->precision = (instr->precision > 2147483647) ? 0 : instr->precision;
 }
 
 void		get_typecast_ltrs(t_instr *instr)

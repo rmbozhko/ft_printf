@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 16:00:29 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/05/11 16:01:24 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/05/18 15:54:23 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ void						ft_alter_instruct_alternative_form(t_instr *instr)
 		instr->str = ft_strjoin("0", instr->str);
 	else if (instr->type == 'p')
 	{
-		if (instr->alter_form == 3)
-			instr->str = ft_strjoin("0x10", instr->str);
-		else if (instr->alter_form == 4)
+		if (instr->alter_form)
 			instr->str = ft_strjoin("0x", instr->str);
 		instr->alter_form = 0;
 	}
+	instr->alter_form = 0;
 }
 
 void						ft_alter_instruct_space(t_instr *instr)
@@ -60,17 +59,21 @@ void						ft_alter_instruct_minus(t_instr *instr)
 
 void						ft_alter_instruct_minus_flag(t_instr *instr)
 {
-	int			diff;
+	intmax_t		diff;
 
 	if (instr->minus_flag && instr->width > 0)
 	{
 		if ((NOT_HEX_TYPE(instr->type))
 			&& (instr->type != 'O' && instr->type != 'o'))
+		{
 			diff = ((instr->width > (int)ft_strlen(instr->str)) ? instr->width -
 				ft_strlen(instr->str) - (2 * instr->alter_form) : 0);
+		}
 		else
+		{
 			diff = ((instr->width > (int)ft_strlen(instr->str))
 				? instr->width - ft_strlen(instr->str) : 0);
-		instr->str = ft_strcat(instr->str, ft_mutiply_str(" ", diff));
+		}
+		instr->str = ft_strjoin(instr->str, ft_mutiply_str(" ", diff));
 	}
 }

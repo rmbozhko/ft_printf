@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 15:36:27 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/05/11 15:38:10 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/05/18 15:56:36 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void				ft_d_and_i(t_instr *instr, va_list ap)
 		else if (instr->types == 7)
 			arg = va_arg(ap, ptrdiff_t);
 		else
-			arg = va_arg(ap, int);
+			arg = (int)va_arg(ap, int);
 		instr->ltz = (arg < 0) ? 1 : 0;
 		arg = (instr->ltz) ? -arg : arg;
 		instr->str = (arg == 0 && instr->precision == 0)
@@ -77,7 +77,7 @@ void				ft_sml_u(t_instr *instr, va_list ap)
 		else if (instr->types == 7)
 			arg = va_arg(ap, ptrdiff_t);
 		else
-			arg = va_arg(ap, unsigned int);
+			arg = (unsigned int)va_arg(ap, unsigned int);
 		instr->str = (arg == 0 && instr->precision == 0)
 			? char_is_zero(instr) : ft_strdup(ft_itoa_base_usig(arg, 10));
 	}

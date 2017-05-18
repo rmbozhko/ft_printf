@@ -22,8 +22,7 @@ SRC = ft_strcat.c ft_strchr.c ft_strcpy.c ft_strdup.c ft_strlen.c ft_strsub.c ft
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -c 
-#-Wall -Wextra -Werror
+CFLAGS = -c -Wall -Wextra -Werror
 HEADER = ft_printf.h
 
 all: $(NAME)

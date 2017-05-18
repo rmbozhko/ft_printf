@@ -22,7 +22,7 @@ void				ft_type_ptr_zero_arg(t_instr *instr, void *arg)
 		temp = 0;
 	else
 		temp = -1;
-	instr->alter_form = 4;
+	instr->alter_form = 1;
 	if (temp >= 0)
 	{
 		if (temp == 0 && instr->precision == 0)
@@ -64,7 +64,7 @@ void				ft_bg_x(t_instr *instr, va_list ap)
 		else if (instr->types == 7)
 			arg = va_arg(ap, ptrdiff_t);
 		else
-			arg = va_arg(ap, unsigned int);
+			arg = (unsigned int)va_arg(ap, unsigned int);
 		instr->str = (arg == 0 && instr->precision == 0) ? char_is_zero(instr)
 			: ft_str_capitalize(ft_itoa_base_usig(arg, 16));
 		instr->alter_form = (arg == 0) ? 0 : instr->alter_form;
@@ -75,7 +75,7 @@ void				ft_sml_x(t_instr *instr, va_list ap)
 {
 	uintmax_t		arg;
 
-	if ((int)instr->type == 'x')
+	if (instr->type == 'x')
 	{
 		if (instr->types == 6)
 			arg = va_arg(ap, size_t);
@@ -92,7 +92,7 @@ void				ft_sml_x(t_instr *instr, va_list ap)
 		else if (instr->types == 7)
 			arg = va_arg(ap, ptrdiff_t);
 		else
-			arg = va_arg(ap, unsigned int);
+			arg = (unsigned int)va_arg(ap, unsigned int);
 		instr->str = (instr->precision == 0 && arg == 0)
 			? ft_strdup("") : ft_strdup(ft_itoa_base_usig(arg, 16));
 		instr->alter_form = ((instr->precision == 0 && arg == 0) ||
