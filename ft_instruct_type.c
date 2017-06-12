@@ -46,11 +46,31 @@ static void		ft_type_percent(t_instr *instr, va_list ap)
 //   }
 // }
 
+// void        ft_sml_n(t_instr *instr, va_list ap)
+// {
+//   static int   *arg = NULL;
+
+//   if (instr->type == 'n')
+//   {
+//     arg = va_arg(ap, int*);
+//     *arg = ft_putchar_mod(0, 2, instr);
+//   }
+// }
+
+// void        ft_sml_n(t_instr *instr, va_list ap)
+// {
+//   if (instr->type == 'n')
+//   {
+//     instr->n_ptr = va_arg(ap, int*);
+//     *instr->n_ptr = ft_putchar_mod(0, 2, instr);
+//   }
+// }
+
 t_ft_get_arg	*ft_set_types_arr(void)
 {
 	t_ft_get_arg		*type_funcs;
 
-	type_funcs = (t_ft_get_arg*)malloc(sizeof(t_ft_get_arg) * 15 + 1);
+	type_funcs = (t_ft_get_arg*)malloc(sizeof(t_ft_get_arg) * 16 + 1);
 	type_funcs[0] = ft_sml_s;
 	type_funcs[1] = ft_d_and_i;
 	type_funcs[2] = ft_bg_d;
@@ -66,7 +86,8 @@ t_ft_get_arg	*ft_set_types_arr(void)
 	type_funcs[12] = ft_other_chars;
 	type_funcs[13] = ft_type_ptr;
 	type_funcs[14] = ft_bg_s;
-	type_funcs[15] = NULL;
+	type_funcs[15] = ft_sml_n;
+	type_funcs[16] = NULL;
 	return (type_funcs);
 }
 
