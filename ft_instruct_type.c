@@ -35,6 +35,17 @@ static void		ft_type_percent(t_instr *instr, va_list ap)
 	(void)ap;
 }
 
+// void        ft_sml_n(t_instr *instr, va_list ap)
+// {
+//   int   *arg;
+
+//   if (instr->type == 'n')
+//   {
+//     arg = va_arg(ap, int*);
+//     *arg = ft_putchar_mod(0, 2, instr);
+//   }
+// }
+
 t_ft_get_arg	*ft_set_types_arr(void)
 {
 	t_ft_get_arg		*type_funcs;
